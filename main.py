@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px # Import plotly express
+import matplotlib.pyplot as plt # Kept for potential other uses, though not needed for the gender chart now
 
 # Set Streamlit page configuration (must be the first Streamlit command)
 st.set_page_config(
@@ -25,19 +26,28 @@ except UnicodeDecodeError:
 # Filter Arts faculty if 'Faculty' column exists
 arts_df = df2[df2['Faculty'] == 'Arts'] if 'Faculty' in df2.columns else df2
 
-# Gender distribution chart
+# Gender distribution chart using Plotly
 if 'Gender' in arts_df.columns:
-    st.subheader("Distribution of Gender in Arts Faculty")
+    st.subheader("Distribution of Gender in Arts Faculty (Plotly)")
 
-    gender_counts = arts_df['Gender'].value_counts()
+    gender_counts = arts_df['Gender'].value_counts().reset_index()
+    gender_counts.columns = ['Gender', 'Count']
 
-    # Create a matplotlib pie chart
-    fig, ax = plt.subplots(figsize=(6, 6))
-    ax.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140)
-    ax.set_title('Distribution of Gender in Arts Faculty')
-    ax.axis('equal')
+    # Create a Plotly Pie Chart
+    fig = px.pie(
+        gender_counts,
+        values='Count',
+        names='Gender',
+        title='Distribution of Gender in Arts Faculty',
+        hole=0.3, # Optional: makes it a donut chart
+        color_discrete_sequence=px.colors.qualitative.Pastel # Optional: sets a nice color theme
+    )
+
+    # Optional: Customize text info (e.g., show percentage and count on hover)
+    fig.update_traces(textposition='inside', textinfo='percent+label')
 
     # Display the chart in Streamlit
-    st.pyplot(fig)
+    st.plotly_chart(fig, use_container_width=True) # Use st.plotly_chart
+
 else:
     st.warning("The dataset does not contain a 'Gender' column.")
