@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotlib.pyplot as plt
 
 # Set Streamlit page configuration (must be the first Streamlit command)
 st.set_page_config(
