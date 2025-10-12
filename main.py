@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Set Streamlit page configuration
+# Set Streamlit page configuration (must be the first Streamlit command)
 st.set_page_config(
     page_title="Scientific Visualization"
 )
@@ -22,7 +22,7 @@ except UnicodeDecodeError:
         encoding='latin-1'
     )
 
-# Filter Arts faculty (if Faculty column exists)
+# Filter Arts faculty if 'Faculty' column exists
 arts_df = df2[df2['Faculty'] == 'Arts'] if 'Faculty' in df2.columns else df2
 
 # Gender distribution chart
@@ -35,7 +35,7 @@ if 'Gender' in arts_df.columns:
     fig, ax = plt.subplots(figsize=(6, 6))
     ax.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140)
     ax.set_title('Distribution of Gender in Arts Faculty')
-    ax.axis('equal')  # Make pie circular
+    ax.axis('equal')
 
     # Display the chart in Streamlit
     st.pyplot(fig)
