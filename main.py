@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+
 # Title for the web app
 st.title("Student Survey Data Viewer")
 
@@ -14,19 +15,29 @@ except UnicodeDecodeError:
 st.subheader("Preview of the Dataset")
 st.dataframe(df2.head())  # Interactive table
 
-# Optionally, show summary info
+# Dataset info
 st.subheader("Dataset Information")
 st.write(f"Rows: {df2.shape[0]}, Columns: {df2.shape[1]}")
 
-# Optionally, let user select columns to view
+# Column selector
 columns = st.multiselect("Select columns to view:", df2.columns)
 if columns:
     st.dataframe(df2[columns])
 
-gender_counts = arts_df['Gender'].value_counts()
+# --- Gender Distribution Pie Chart ---
+if 'Gender' in df2.columns:
+    st.subheader("Distribution of Gender in Dataset")
 
-plt.figure(figsize=(6, 6))
-plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140)
-plt.title('Distribution of Gender in Arts Faculty')
-plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-plt.show()
+    # Count gender values
+    gender_counts = df2['Gender'].value_counts()
+
+    # Create pie chart
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', startangle=140)
+    ax.set_title('Distribution of Gender in Dataset')
+    ax.axis('equal')
+
+    # Display chart in Streamlit
+    st.pyplot(fig)
+else:
+    st.warning("The dataset does not contain a 'Gender' column.")
