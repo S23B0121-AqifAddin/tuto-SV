@@ -93,41 +93,46 @@ def run_app():
     st.markdown("---")
 
 
-    # 3. Distribution of Best Aspects of the Program (Horizontal Bar/Count Plot)
-    st.header("3. Distribution of Best Aspects of the Program")
-    
-    # Plotly Express automatically handles value counts for bar charts
-    fig3 = px.bar(
-        arts_df['Q7. In your opinion,the best aspect of the program is'].value_counts().reset_index(),
-        y='index',
-        x='Q7. In your opinion,the best aspect of the program is',
-        orientation='h',
-        title='Distribution of Best Aspects of the Program (Arts Faculty)',
-        labels={'index': 'Best Aspect of the Program', 'Q7. In your opinion,the best aspect of the program is': 'Count'},
-        color='index'
-    )
-    fig3.update_yaxes(autorange="reversed") # Ensure descending order
-    st.plotly_chart(fig3, use_container_width=True)
-    st.markdown("---")
+  # 3. Distribution of Best Aspects of the Program (Horizontal Bar/Count Plot)
+st.header("3. Distribution of Best Aspects of the Program")
+
+# Create and explicitly rename the DataFrame for clarity and robustness
+best_aspects_df = arts_df['Q7. In your opinion,the best aspect of the program is'].value_counts().reset_index()
+best_aspects_df.columns = ['Aspect', 'Count'] # RENAME columns to simple 'Aspect' and 'Count'
+
+fig3 = px.bar(
+    best_aspects_df,
+    y='Aspect', # Use the new, clean column name
+    x='Count', # Use the new, clean column name
+    orientation='h',
+    title='Distribution of Best Aspects of the Program (Arts Faculty)',
+    labels={'Aspect': 'Best Aspect of the Program', 'Count': 'Count'},
+    color='Aspect'
+)
+fig3.update_yaxes(autorange="reversed") 
+st.plotly_chart(fig3, use_container_width=True)
+st.markdown("---")
 
 
     # 4. Aspects of the Program that Could be Improved (Horizontal Bar/Count Plot)
-    st.header("4. Aspects of the Program that Could be Improved")
-    
-    fig4 = px.bar(
-        arts_df['What aspects of the program could be improved?'].value_counts().reset_index(),
-        y='index',
-        x='What aspects of the program could be improved?',
-        orientation='h',
-        title='Aspects of the Program that Could be Improved (Arts Faculty)',
-        labels={'index': 'Aspects for Improvement', 'What aspects of the program could be improved?': 'Count'},
-        color='index'
-    )
-    fig4.update_yaxes(autorange="reversed") # Ensure descending order
-    st.plotly_chart(fig4, use_container_width=True)
-    st.markdown("---")
+st.header("4. Aspects of the Program that Could be Improved")
 
+# Create and explicitly rename the DataFrame for clarity and robustness
+improvement_aspects_df = arts_df['What aspects of the program could be improved?'].value_counts().reset_index()
+improvement_aspects_df.columns = ['Aspect', 'Count'] # RENAME columns to simple 'Aspect' and 'Count'
 
+fig4 = px.bar(
+    improvement_aspects_df,
+    y='Aspect', # Use the new, clean column name
+    x='Count', # Use the new, clean column name
+    orientation='h',
+    title='Aspects of the Program that Could be Improved (Arts Faculty)',
+    labels={'Aspect': 'Aspects for Improvement', 'Count': 'Count'},
+    color='Aspect'
+)
+fig4.update_yaxes(autorange="reversed")
+st.plotly_chart(fig4, use_container_width=True)
+st.markdown("---")
     # 5. Perceived Improvement in Education Quality (Count Plot)
     st.header("5. Perceived Improvement in Education Quality")
     
