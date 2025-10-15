@@ -133,6 +133,10 @@ fig4 = px.bar(
 fig4.update_yaxes(autorange="reversed")
 st.plotly_chart(fig4, use_container_width=True)
 st.markdown("---")
+
+
+
+
     # 5. Perceived Improvement in Education Quality (Count Plot)
     st.header("5. Perceived Improvement in Education Quality")
     
