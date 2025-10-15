@@ -13,15 +13,11 @@ st.header("Scientific Visualization", divider="grey")
 
 # Load your data
 try:
-    df2 = pd.read_csv(
-        'https://raw.githubusercontent.com/S23B0121-AqifAddin/tuto-SV/refs/heads/main/student_survey_exported%20(1).csv',
-        encoding='utf-8'
-    )
+  df2 = pd.read_csv('https://raw.githubusercontent.com/S23B0121-AqifAddin/tuto-SV/refs/heads/main/student_survey_exported%20(1).csv', encoding='utf-8')
 except UnicodeDecodeError:
-    df2 = pd.read_csv(
-        'https://raw.githubusercontent.com/S23B0121-AqifAddin/tuto-SV/refs/heads/main/student_survey_exported%20(1).csv',
-        encoding='latin-1'
-    )
+  df2 = pd.read_csv('https://raw.githubusercontent.com/S23B0121-AqifAddin/tuto-SV/refs/heads/main/student_survey_exported%20(1).csv', encoding='latin-1')
+
+display(df2)
 
 # Filter Arts faculty if 'Faculty' column exists
 arts_df = df2[df2['Faculty'] == 'Arts'] if 'Faculty' in df2.columns else df2
