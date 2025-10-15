@@ -48,13 +48,6 @@ if 'Gender' in arts_df.columns:
 else:
     st.warning("The dataset does not contain a 'Gender' column.")
 
-try:
-  df2 = pd.read_csv('/content/drive/MyDrive/STUDENT-SURVEY.csv', encoding='utf-8')
-except UnicodeDecodeError:
-  df2 = pd.read_csv('/content/drive/MyDrive/STUDENT-SURVEY.csv', encoding='latin-1')
-
-arts_df = df[df['Faculty'] == 'Arts'].copy()
-
 academic_year_counts = arts_df['Masters Academic Year in EU'].value_counts().reset_index()
 academic_year_counts.columns = ['Masters Academic Year in EU', 'Count']
 
