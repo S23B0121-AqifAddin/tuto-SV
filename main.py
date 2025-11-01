@@ -3,7 +3,7 @@ import streamlit as st
 # --- Page config ---
 st.set_page_config(
     page_title="Accident Motorbike in Bangladesh",
-    page_icon=":material/school:",
+    page_icon=":motorbike:",
 )
 
 # --- Define pages ---
